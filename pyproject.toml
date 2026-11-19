@@ -4,23 +4,28 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bplan-geography"
-version = "0.2.0"
-description = "Parse Network Rail BPLAN Geography: network topology and minimum sectional running times."
+version = "0.2.1"
+description = "Parse Network Rail's BPLAN Geography extract in Python: the UK rail network, TIPLOCs and sectional running times."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "GPL-3.0-only"
 license-files = ["LICENSE"]
 authors = [{ name = "Dillon Rose", email = "dillonrose0@icloud.com" }]
-keywords = ["rail", "bplan", "network-rail", "tiploc", "timetable", "open-rail-data", "railway"]
+keywords = ["bplan", "network-rail", "railway", "uk-rail", "tiploc", "sectional-running-times", "running-times", "rail-network", "timetable-planning", "great-britain", "open-data"]
 classifiers = [
     "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = ["pandas>=2.0", "networkx>=3.0"]
 
@@ -32,7 +37,10 @@ bplan-geography = "bplan_geography.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/rosedillon/bplan-geography"
+Documentation = "https://github.com/rosedillon/bplan-geography#readme"
+Source = "https://github.com/rosedillon/bplan-geography"
 Issues = "https://github.com/rosedillon/bplan-geography/issues"
+Changelog = "https://github.com/rosedillon/bplan-geography/releases"
 
 [tool.setuptools.packages.find]
 where = ["src"]
