@@ -1,5 +1,10 @@
 # bplan-geography
 
+[![PyPI](https://img.shields.io/pypi/v/bplan-geography)](https://pypi.org/project/bplan-geography/)
+[![Python](https://img.shields.io/pypi/pyversions/bplan-geography)](https://pypi.org/project/bplan-geography/)
+[![CI](https://github.com/rosedillon/bplan-geography/actions/workflows/ci.yml/badge.svg)](https://github.com/rosedillon/bplan-geography/actions/workflows/ci.yml)
+[![Licence: GPL-3.0](https://img.shields.io/badge/licence-GPL--3.0-blue)](https://github.com/rosedillon/bplan-geography/blob/main/LICENSE)
+
 Parse Network Rail's BPLAN Geography extract, the physical rail network
 as the train planning system sees it, and ask how quickly a train could
 get between two points.
@@ -27,7 +32,7 @@ graph.minimum_running_time("LEEDS", "YORK", "185")
 Python 3.11 or later.
 
 ```sh
-pip install git+https://github.com/rosedillon/bplan-geography
+pip install bplan-geography
 ```
 
 or, from a clone, `pip install .`. It depends on pandas and networkx.
@@ -183,6 +188,7 @@ layout shows up instead of producing wrong columns.
 | `BplanTimingGraph(cleaned_dir)` | the running time graph |
 | `.minimum_running_time(from, to, traction)` | minutes, or `None` with no route |
 | `.running_time_detail(from, to, traction)` | minutes and the exact traction share |
+| `.fastest_path(from, to, traction)` | the TIPLOCs on that route, or `None` |
 | `BplanNetworkLinks(cleaned_dir)` | running lines and distances between adjacent TIPLOCs |
 | `read_header(path)` | the extract's validity window |
 | `iter_records(path)` | stream `(record_type, fields)` for the kept types |
@@ -206,6 +212,6 @@ licensed data is committed.
 
 ## Licence
 
-GPL-3.0. See [LICENSE](LICENSE).
+GPL-3.0. See [LICENSE](https://github.com/rosedillon/bplan-geography/blob/main/LICENSE).
 
 Not affiliated with or endorsed by Network Rail.

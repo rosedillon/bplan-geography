@@ -150,6 +150,26 @@ class BplanTimingGraph:
         """Minimum running time in minutes; ``None`` if unroutable."""
         return self.running_time_detail(from_tiploc, to_tiploc, traction_code)[0]
 
+    def fastest_path(
+        self, from_tiploc: str, to_tiploc: str, traction_code: str
+    ) -> list[str] | None:
+        """TIPLOCs on the fastest route, both ends included.
+
+        Returns ``None`` when either end is unknown or there is no
+        route. This is the path :meth:`minimum_running_time` times.
+        """
+        origin = from_tiploc.strip().upper()
+        destination = to_tiploc.strip().upper()
+        if origin not in self.graph or destination not in self.graph:
+            return None
+        try:
+            path: list[str] = nx.dijkstra_path(
+                self.graph, origin, destination, weight=self._weight_for(traction_code)
+            )
+        except nx.NetworkXNoPath:
+            return None
+        return path
+
     def running_time_detail(
         self, from_tiploc: str, to_tiploc: str, traction_code: str
     ) -> tuple[float | None, float | None]:
@@ -167,15 +187,8 @@ class BplanTimingGraph:
         fallback. A low share means the answer is optimistic for this
         traction.
         """
-        origin = from_tiploc.strip().upper()
-        destination = to_tiploc.strip().upper()
-        if origin not in self.graph or destination not in self.graph:
-            return None, None
-        try:
-            path = nx.dijkstra_path(
-                self.graph, origin, destination, weight=self._weight_for(traction_code)
-            )
-        except nx.NetworkXNoPath:
+        path = self.fastest_path(from_tiploc, to_tiploc, traction_code)
+        if path is None:
             return None, None
 
         edges = list(itertools.pairwise(path))

@@ -132,3 +132,15 @@ class TestNetworkLinks:
 
     def test_length_is_the_pair_count(self, links: BplanNetworkLinks) -> None:
         assert len(links) == 3  # A->B, B->C, B->D
+
+
+class TestFastestPath:
+    def test_path_includes_both_ends(self, graph: BplanTimingGraph) -> None:
+        path = graph.fastest_path("AAAA", "CCCC", FAST_TRACTION)
+        assert path is not None
+        assert path[0] == "AAAA"
+        assert path[-1] == "CCCC"
+
+    def test_no_route(self, graph: BplanTimingGraph) -> None:
+        assert graph.fastest_path("CCCC", "AAAA", FAST_TRACTION) is None
+        assert graph.fastest_path("ZZZZ", "AAAA", FAST_TRACTION) is None
